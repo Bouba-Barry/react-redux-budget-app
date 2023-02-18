@@ -28,6 +28,17 @@
   color: #61dafb;
 }
 
+.listeCurrency:focus {
+  outline: none;
+  background-color: aqua;
+}
+.listeCurrency option {
+ 
+  outline: none;
+  background-color: green  !important;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -2,20 +2,25 @@ import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const AllocationForm = (props) => {
-    const { dispatch,remaining  } = useContext(AppContext);
+    const { dispatch,remaining, currency} = useContext(AppContext);
 
     const [name, setName] = useState('');
     const [cost, setCost] = useState('');
     const [action, setAction] = useState('');
 
     const submitEvent = () => {
-
+        if(isNaN(cost)){
+            alert("Please enter a Valid number for the cost !")
+            setCost("");
+            return;
+        }else{
             if(cost > remaining) {
                 alert("The value cannot exceed remaining funds  £"+remaining);
                 setCost("");
                 return;
             }
-
+        }
+           
         const expense = {
             name: name,
             cost: parseInt(cost),
@@ -59,14 +64,16 @@ const AllocationForm = (props) => {
                 <option value="Reduce" name="Reduce">Reduce</option>
                   </select>
 
-                    <input
-                        required='required'
-                        type='number'
-                        id='cost'
-                        value={cost}
-                        style={{ marginLeft: '2rem' , size: 10}}
-                        onChange={(event) => setCost(event.target.value)}>
-                        </input>
+                  <div style={{ marginLeft:'50px' ,padding: 0, display: 'flex',  alignItems: 'baseline' }}>
+  <span style={{ margin: 0, padding: 0, marginRight: '1rem' }}>{currency}</span>
+  <input
+    required='required'
+    id='cost'
+    value={cost}
+    style={{ size: 10 }}
+    onChange={(event) => setCost(event.target.value)}
+  />
+</div>
 
                     <button className="btn btn-primary" onClick={submitEvent} style={{ marginLeft: '2rem' }}>
                         Save
